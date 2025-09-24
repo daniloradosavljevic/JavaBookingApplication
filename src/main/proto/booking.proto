@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package booking.grpc;
+
+option java_multiple_files = true;
+option java_package = "booking.grpc";
+option java_outer_classname = "BookingProto";
+
+// Hotel info
+message Hotel {
+  string name = 1;
+  int32 category = 2;
+  string city = 3;
+  double distanceFromCenter = 4;
+  int32 availableRooms = 5;
+  double currentPrice = 6;
+}
+
+// Request for search
+message SearchRequest {
+  string city = 1;
+  double maxDistance = 2;
+  int32 minCategory = 3;
+}
+
+// Response for search
+message SearchResponse {
+  repeated Hotel hotels = 1;
+}
+
+// Reservation request
+message ReservationRequest {
+  string hotelName = 1;
+  string clientId = 2;
+  string startDate = 3;
+  int32 days = 4;
+}
+
+// Reservation response
+message ReservationResponse {
+  bool accepted = 1;
+  string message = 2;
+  double price = 3;
+}
+
+// Payment request
+message PaymentRequest {
+  string reservationId = 1;
+  string clientId = 2;
+}
+
+// Payment response
+message PaymentResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// Main BookingService
+service BookingService {
+  rpc SearchHotels(SearchRequest) returns (SearchResponse);
+  rpc MakeReservation(ReservationRequest) returns (ReservationResponse);
+  rpc PayForReservation(PaymentRequest) returns (PaymentResponse);
+}
