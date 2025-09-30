@@ -6,6 +6,7 @@ import booking.grpc.SearchResponse;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class BookingClient {
@@ -15,38 +16,38 @@ public class BookingClient {
                 .build();
 
         BookingServiceGrpc.BookingServiceBlockingStub stub = BookingServiceGrpc.newBlockingStub(channel);
-
         Scanner scanner = new Scanner(System.in);
+        List<booking.grpc.Hotel> lastHotels = null;
+
+        NotificationClient notificationClient = null;
+        Thread notificationThread = null;
 
         while (true) {
-            System.out.println("=== Booking Client Menu ===");
-            System.out.println("1. Search hotels");
-            System.out.println("0. Exit");
-            System.out.print("Choose option: ");
+            printMenuPrompt();
             String choiceStr = scanner.nextLine().trim();
             int choice = choiceStr.isEmpty() ? -1 : Integer.parseInt(choiceStr);
 
             if (choice == 0) {
+                if (notificationClient != null) notificationClient.stop();
                 break;
             } else if (choice == 1) {
                 System.out.print("Unesite grad (Enter za bilo koji): ");
                 String city = scanner.nextLine().trim();
-
                 System.out.print("Unesite maksimalnu udaljenost od centra (Enter za bilo koji): ");
                 String maxDistStr = scanner.nextLine().trim();
                 double maxDistance = maxDistStr.isEmpty() ? 9999.0 : Double.parseDouble(maxDistStr);
-
                 System.out.print("Unesite minimalnu kategoriju (3-5, Enter za bilo koju): ");
                 String minCatStr = scanner.nextLine().trim();
                 int minCategory = minCatStr.isEmpty() ? 0 : Integer.parseInt(minCatStr);
 
                 SearchRequest request = SearchRequest.newBuilder()
-                        .setCity(city) 
+                        .setCity(city)
                         .setMaxDistance(maxDistance)
                         .setMinCategory(minCategory)
                         .build();
 
                 SearchResponse response = stub.searchHotels(request);
+                lastHotels = response.getHotelsList();
 
                 System.out.println("\nBroj pronadjenih hotela: " + response.getHotelsCount());
                 response.getHotelsList().forEach(hotel -> {
@@ -59,6 +60,12 @@ public class BookingClient {
                     System.out.println("Cena: " + hotel.getCurrentPrice());
                 });
                 System.out.println();
+
+                if (notificationClient != null) notificationClient.stop();
+                notificationClient = new NotificationClient(city, maxDistance, minCategory);
+                notificationThread = new Thread(notificationClient);
+                notificationThread.setDaemon(true);
+                notificationThread.start();
             } else {
                 System.out.println("Nepoznata opcija, pokusajte ponovo.\n");
             }
@@ -66,5 +73,12 @@ public class BookingClient {
 
         channel.shutdown();
         System.out.println("Kraj programa.");
+    }
+
+    public static void printMenuPrompt() {
+        System.out.println("=== Booking Client Menu ===");
+        System.out.println("1. Search hotels");
+        System.out.println("0. Exit");
+        System.out.print("Choose option: ");
     }
 }

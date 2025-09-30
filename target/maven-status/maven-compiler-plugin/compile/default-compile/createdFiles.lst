@@ -1,8 +1,11 @@
+booking\client\NotificationClient.class
 booking\grpc\SearchRequest.class
 booking\grpc\SearchResponse$Builder.class
 booking\grpc\ReservationResponse$Builder.class
+booking\socket\NotificationServer$ClientHandler.class
 booking\grpc\Hotel.class
 booking\grpc\PaymentRequest.class
+booking\socket\NotificationServer$SearchParams.class
 booking\grpc\PaymentResponseOrBuilder.class
 booking\grpc\SearchRequestOrBuilder.class
 booking\grpc\Hotel$Builder.class
@@ -32,8 +35,10 @@ booking\core\Reservation$Status.class
 booking\grpc\PaymentRequestOrBuilder.class
 booking\core\Reservation.class
 booking\grpc\PaymentResponse$1.class
+booking\socket\NotificationServer.class
 booking\grpc\PaymentResponse$Builder.class
 booking\grpc\BookingServiceGrpc$BookingServiceFileDescriptorSupplier.class
+booking\grpc\HotelCsvWatcher.class
 booking\grpc\PaymentRequest$Builder.class
 booking\grpc\SearchResponseOrBuilder.class
 booking\grpc\SearchRequest$1.class
