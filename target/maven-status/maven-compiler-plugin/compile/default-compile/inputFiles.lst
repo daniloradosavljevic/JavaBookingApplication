@@ -11,6 +11,7 @@ C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\grpc\AdminSer
 C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\grpc\BookingServiceImpl.java
 C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\grpc\HotelCsvWatcher.java
 C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\server\BookingServer.java
+C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\server\BotClientRunner.java
 C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\socket\NotificationServer.java
 C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\grpc-java\booking\grpc\AdminServiceGrpc.java
 C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\grpc-java\booking\grpc\BookingServiceGrpc.java

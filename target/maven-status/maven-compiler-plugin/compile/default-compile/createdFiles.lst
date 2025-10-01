@@ -17,6 +17,7 @@ booking\grpc\AdminEmpty$1.class
 booking\grpc\Hotel$Builder.class
 booking\grpc\AdminServiceGrpc$2.class
 booking\grpc\BookingServiceGrpc$BookingServiceBlockingStub.class
+booking\server\BotClientRunner.class
 booking\grpc\BookingServiceGrpc$1.class
 booking\grpc\BookingServiceGrpc$BookingServiceBaseDescriptorSupplier.class
 booking\grpc\BookingServiceGrpc$BookingServiceFutureStub.class
