@@ -50,6 +50,16 @@ public final class BookingProto {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_booking_grpc_PaymentResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_booking_grpc_CancelRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_booking_grpc_CancelRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_booking_grpc_CancelResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_booking_grpc_CancelResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -73,14 +83,19 @@ public final class BookingProto {
       "price\030\003 \001(\001\"9\n\016PaymentRequest\022\025\n\rreserva" +
       "tionId\030\001 \001(\t\022\020\n\010clientId\030\002 \001(\t\"3\n\017Paymen" +
       "tResponse\022\017\n\007success\030\001 \001(\010\022\017\n\007message\030\002 " +
-      "\001(\t2\205\002\n\016BookingService\022I\n\014SearchHotels\022\033" +
-      ".booking.grpc.SearchRequest\032\034.booking.gr" +
-      "pc.SearchResponse\022V\n\017MakeReservation\022 .b" +
-      "ooking.grpc.ReservationRequest\032!.booking" +
-      ".grpc.ReservationResponse\022P\n\021PayForReser" +
-      "vation\022\034.booking.grpc.PaymentRequest\032\035.b" +
-      "ooking.grpc.PaymentResponseB\036\n\014booking.g" +
-      "rpcB\014BookingProtoP\001b\006proto3"
+      "\001(\t\"8\n\rCancelRequest\022\025\n\rreservationId\030\001 " +
+      "\001(\t\022\020\n\010clientId\030\002 \001(\t\"2\n\016CancelResponse\022" +
+      "\017\n\007success\030\001 \001(\010\022\017\n\007message\030\002 \001(\t2\325\002\n\016Bo" +
+      "okingService\022I\n\014SearchHotels\022\033.booking.g" +
+      "rpc.SearchRequest\032\034.booking.grpc.SearchR" +
+      "esponse\022V\n\017MakeReservation\022 .booking.grp" +
+      "c.ReservationRequest\032!.booking.grpc.Rese" +
+      "rvationResponse\022P\n\021PayForReservation\022\034.b" +
+      "ooking.grpc.PaymentRequest\032\035.booking.grp" +
+      "c.PaymentResponse\022N\n\021CancelReservation\022\033" +
+      ".booking.grpc.CancelRequest\032\034.booking.gr" +
+      "pc.CancelResponseB\036\n\014booking.grpcB\014Booki" +
+      "ngProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -127,6 +142,18 @@ public final class BookingProto {
     internal_static_booking_grpc_PaymentResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_booking_grpc_PaymentResponse_descriptor,
+        new java.lang.String[] { "Success", "Message", });
+    internal_static_booking_grpc_CancelRequest_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_booking_grpc_CancelRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_booking_grpc_CancelRequest_descriptor,
+        new java.lang.String[] { "ReservationId", "ClientId", });
+    internal_static_booking_grpc_CancelResponse_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_booking_grpc_CancelResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_booking_grpc_CancelResponse_descriptor,
         new java.lang.String[] { "Success", "Message", });
   }
 

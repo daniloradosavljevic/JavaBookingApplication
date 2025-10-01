@@ -66,7 +66,53 @@ public class BookingClient {
                 notificationThread = new Thread(notificationClient);
                 notificationThread.setDaemon(true);
                 notificationThread.start();
-            } else {
+            } else if (choice == 2) {
+                System.out.print("Unesite naziv hotela: ");
+                String hotelName = scanner.nextLine().trim();
+                System.out.print("Unesite svoj client ID: ");
+                String clientId = scanner.nextLine().trim();
+                System.out.print("Unesite datum pocetka (yyyy-MM-dd): ");
+                String startDate = scanner.nextLine().trim();
+                System.out.print("Unesite broj dana: ");
+                int days = Integer.parseInt(scanner.nextLine().trim());
+
+                booking.grpc.ReservationRequest req = booking.grpc.ReservationRequest.newBuilder()
+                        .setHotelName(hotelName)
+                        .setClientId(clientId)
+                        .setStartDate(startDate)
+                        .setDays(days)
+                        .build();
+                booking.grpc.ReservationResponse resp = stub.makeReservation(req);
+                System.out.println(resp.getMessage());
+                if (resp.getAccepted()) {
+                    System.out.println("Cena za boravak: " + resp.getPrice());
+                    System.out.println("Sacuvajte reservation ID za placanje.");
+                }
+            } else if (choice == 3) {
+                System.out.print("Unesite reservation ID: ");
+                String reservationId = scanner.nextLine().trim();
+                System.out.print("Unesite svoj client ID: ");
+                String clientId = scanner.nextLine().trim();
+
+                booking.grpc.PaymentRequest req = booking.grpc.PaymentRequest.newBuilder()
+                        .setReservationId(reservationId)
+                        .setClientId(clientId)
+                        .build();
+                booking.grpc.PaymentResponse resp = stub.payForReservation(req);
+                System.out.println(resp.getMessage());
+            }else if (choice == 4) {
+                System.out.print("Unesi reservation ID za otkazivanje: ");
+                String reservationId = scanner.nextLine().trim();
+                System.out.print("Unesi svoj client ID: ");
+                String clientId = scanner.nextLine().trim();
+
+                booking.grpc.CancelRequest req = booking.grpc.CancelRequest.newBuilder()
+                        .setReservationId(reservationId)
+                        .setClientId(clientId)
+                        .build();
+                booking.grpc.CancelResponse resp = stub.cancelReservation(req);
+                System.out.println(resp.getMessage());
+            }else {
                 System.out.println("Nepoznata opcija, pokusajte ponovo.\n");
             }
         }
@@ -78,6 +124,9 @@ public class BookingClient {
     public static void printMenuPrompt() {
         System.out.println("=== Booking Client Menu ===");
         System.out.println("1. Search hotels");
+        System.out.println("2. Rezervisi hotel");
+        System.out.println("3. Plati rezervaciju");
+        System.out.println("4. Otkazi rezervaciju");
         System.out.println("0. Exit");
         System.out.print("Choose option: ");
     }

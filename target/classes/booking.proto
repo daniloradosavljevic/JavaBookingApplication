@@ -54,10 +54,22 @@ message PaymentResponse {
   bool success = 1;
   string message = 2;
 }
+// Reservation cancelation
+message CancelRequest {
+  string reservationId = 1;
+  string clientId = 2;
+}
+
+message CancelResponse {
+  bool success = 1;
+  string message = 2;
+}
 
 // Main BookingService
 service BookingService {
   rpc SearchHotels(SearchRequest) returns (SearchResponse);
   rpc MakeReservation(ReservationRequest) returns (ReservationResponse);
   rpc PayForReservation(PaymentRequest) returns (PaymentResponse);
+  rpc CancelReservation(CancelRequest) returns (CancelResponse);
 }
+

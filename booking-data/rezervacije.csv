@@ -1,0 +1,2 @@
+reservationId,hotelName,clientId,startDate,days,status,paymentDeadline,price
+8d373ddd-dd50-49a1-a80a-2ebbde02f58c,Hotel Beograd,123456,2025-10-16,2,CANCELLED,2025-10-01T16:44:31.034907800,90.0
