@@ -50,6 +50,7 @@ booking\grpc\SearchRequest$1.class
 booking\grpc\BookingProto.class
 booking\grpc\CancelRequest.class
 booking\grpc\BookingServiceImpl.class
+booking\client\HotelPriceHistory.class
 booking\grpc\CancelResponse$Builder.class
 booking\grpc\BookingServiceGrpc$BookingServiceImplBase.class
 booking\grpc\ReservationRequest$Builder.class

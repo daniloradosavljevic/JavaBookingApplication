@@ -2,17 +2,20 @@ package booking.client;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Map;
 
 public class NotificationClient implements Runnable {
     private volatile boolean running = true;
     private final String city;
     private final double maxDistance;
     private final int minCategory;
+    private final Map<String, HotelPriceHistory> hotelPriceHistory;
 
-    public NotificationClient(String city, double maxDistance, int minCategory) {
+    public NotificationClient(String city, double maxDistance, int minCategory, Map<String, HotelPriceHistory> hotelPriceHistory) {
         this.city = city;
         this.maxDistance = maxDistance;
         this.minCategory = minCategory;
+        this.hotelPriceHistory = hotelPriceHistory;
     }
 
     @Override
@@ -27,6 +30,7 @@ public class NotificationClient implements Runnable {
                 String msg = in.readLine();
                 if (msg == null) break;
                 if (matchesFilter(msg)) {
+                    updatePriceHistoryFromNotification(msg);
                     System.out.println("[NOTIFIKACIJA] " + msg);
                     BookingClient.printMenuPrompt();
                 }
@@ -58,6 +62,25 @@ public class NotificationClient implements Runnable {
         int start = idx + label.length();
         int end = msg.indexOf("|", start);
         return msg.substring(start, end > 0 ? end : msg.length()).trim();
+    }
+
+    private void updatePriceHistoryFromNotification(String msg) {
+        try {
+            if (msg.contains("Promena [Promena cene]:")) {
+                int start = msg.indexOf("]:") + 3;
+                int end = msg.indexOf("| Grad");
+                String hotelName = msg.substring(start, end).trim();
+
+                int priceIdx = msg.lastIndexOf("Cena: ");
+                double newPrice = Double.parseDouble(msg.substring(priceIdx + 6).trim());
+
+                hotelPriceHistory
+                        .computeIfAbsent(hotelName, k -> new HotelPriceHistory())
+                        .update(newPrice);
+            }
+        } catch (Exception e) {
+            // ignore parse errors
+        }
     }
 
     public void stop() {

@@ -6,7 +6,9 @@ import booking.grpc.SearchResponse;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class BookingClient {
@@ -18,6 +20,7 @@ public class BookingClient {
         BookingServiceGrpc.BookingServiceBlockingStub stub = BookingServiceGrpc.newBlockingStub(channel);
         Scanner scanner = new Scanner(System.in);
         List<booking.grpc.Hotel> lastHotels = null;
+        Map<String, HotelPriceHistory> hotelPriceHistory = new HashMap<>();
 
         NotificationClient notificationClient = null;
         Thread notificationThread = null;
@@ -48,6 +51,15 @@ public class BookingClient {
 
                 SearchResponse response = stub.searchHotels(request);
                 lastHotels = response.getHotelsList();
+                if (lastHotels != null) {
+                    for (booking.grpc.Hotel hotel : lastHotels) {
+                        String hotelKey = hotel.getName();
+                        hotelPriceHistory
+                            .computeIfAbsent(hotelKey, k -> new HotelPriceHistory())
+                            .update(hotel.getCurrentPrice());
+                    }
+                }
+
 
                 System.out.println("\nBroj pronadjenih hotela: " + response.getHotelsCount());
                 response.getHotelsList().forEach(hotel -> {
@@ -62,7 +74,7 @@ public class BookingClient {
                 System.out.println();
 
                 if (notificationClient != null) notificationClient.stop();
-                notificationClient = new NotificationClient(city, maxDistance, minCategory);
+                notificationClient = new NotificationClient(city, maxDistance, minCategory, hotelPriceHistory);
                 notificationThread = new Thread(notificationClient);
                 notificationThread.setDaemon(true);
                 notificationThread.start();
@@ -112,6 +124,18 @@ public class BookingClient {
                         .build();
                 booking.grpc.CancelResponse resp = stub.cancelReservation(req);
                 System.out.println(resp.getMessage());
+            }else if (choice == 5) {
+                System.out.println("=== Istorija cena hotela (za period pracenja) ===");
+                for (Map.Entry<String, HotelPriceHistory> entry : hotelPriceHistory.entrySet()) {
+                    HotelPriceHistory hist = entry.getValue();
+                    if (hist.isInitialized()) {
+                        System.out.println("Hotel: " + entry.getKey());
+                        System.out.println("  Min cena: " + hist.getMinPrice());
+                        System.out.println("  Max cena: " + hist.getMaxPrice());
+                        System.out.println("  Poslednja cena: " + hist.getLastPrice());
+                        System.out.println();
+                    }
+                }
             }else {
                 System.out.println("Nepoznata opcija, pokusajte ponovo.\n");
             }
@@ -127,6 +151,7 @@ public class BookingClient {
         System.out.println("2. Rezervisi hotel");
         System.out.println("3. Plati rezervaciju");
         System.out.println("4. Otkazi rezervaciju");
+        System.out.println("5. Prikazi istoriju cena");
         System.out.println("0. Exit");
         System.out.print("Choose option: ");
     }
