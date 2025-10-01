@@ -3,7 +3,7 @@ import booking.grpc.BookingServiceImpl;
 import booking.socket.NotificationServer;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
-
+import booking.grpc.AdminServiceImpl;
 public class BookingServer {
     public static NotificationServer notificationServer;
     public static BookingServiceImpl bookingService;
@@ -22,6 +22,12 @@ public class BookingServer {
                 .build()
                 .start();
         System.out.println("Booking gRPC server started on port 50051");
+        Server adminGrpc = ServerBuilder.forPort(7000)
+                .addService(new AdminServiceImpl())
+                .build()
+                .start();
+        System.out.println("Admin gRPC server started on port 7000");
         server.awaitTermination();
+        adminGrpc.awaitTermination();
     }
 }

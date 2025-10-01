@@ -1,8 +1,10 @@
 package booking.client;
 
 import booking.grpc.BookingServiceGrpc;
+
 import booking.grpc.SearchRequest;
 import booking.grpc.SearchResponse;
+import booking.client.HotelPriceHistory;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 

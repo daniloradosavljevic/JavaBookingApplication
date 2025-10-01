@@ -1,5 +1,5 @@
 id,name,category,city,distanceFromCenter,capacity,freeRooms,currentPrice
-hns1,Hotel Novi Sad,4,Novi Sad,1.2,10,2,50
+hns1,Hotel Novi Sad,4,Novi Sad,1.2,10,3,50
 hns2,Hotel Centar,5,Novi Sad,0.5,2,2,120
 hbg1,Hotel Beograd,3,Beograd,0.9,5,4,90
 hnis1,Hotel Niš,3,Niš,2,8,8,35

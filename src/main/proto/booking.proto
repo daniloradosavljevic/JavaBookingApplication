@@ -73,3 +73,26 @@ service BookingService {
   rpc CancelReservation(CancelRequest) returns (CancelResponse);
 }
 
+  service AdminService {
+  rpc GetHotelStats(AdminEmpty) returns (HotelStatsResponse);
+}
+
+message AdminEmpty {}
+
+message HotelStatsResponse {
+  repeated HotelStats stats = 1;
+}
+
+message HotelStats {
+  string hotelName = 1;
+  string city = 2;
+  int32 category = 3;
+  int32 freeRooms = 4;
+  int32 totalReservations = 5;
+  int32 soldNights = 6;
+  double hotelIncome = 7;
+  double systemCommission = 8;
+  double currentPrice = 9;
+}
+
+

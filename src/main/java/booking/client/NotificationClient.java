@@ -3,6 +3,7 @@ package booking.client;
 import java.io.*;
 import java.net.Socket;
 import java.util.Map;
+import booking.client.HotelPriceHistory;
 
 public class NotificationClient implements Runnable {
     private volatile boolean running = true;

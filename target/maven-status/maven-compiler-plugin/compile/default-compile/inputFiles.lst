@@ -1,3 +1,4 @@
+C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\client\AdminClient.java
 C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\client\BookingClient.java
 C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\client\HotelPriceHistory.java
 C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\client\NotificationClient.java
@@ -6,11 +7,15 @@ C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\core\Client.j
 C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\core\Hotel.java
 C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\core\HotelAccount.java
 C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\core\Reservation.java
+C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\grpc\AdminServiceImpl.java
 C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\grpc\BookingServiceImpl.java
 C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\grpc\HotelCsvWatcher.java
 C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\server\BookingServer.java
 C:\Users\HP\eclipse-workspace\booking-system\src\main\java\booking\socket\NotificationServer.java
+C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\grpc-java\booking\grpc\AdminServiceGrpc.java
 C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\grpc-java\booking\grpc\BookingServiceGrpc.java
+C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\java\booking\grpc\AdminEmpty.java
+C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\java\booking\grpc\AdminEmptyOrBuilder.java
 C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\java\booking\grpc\BookingProto.java
 C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\java\booking\grpc\CancelRequest.java
 C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\java\booking\grpc\CancelRequestOrBuilder.java
@@ -18,6 +23,10 @@ C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\j
 C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\java\booking\grpc\CancelResponseOrBuilder.java
 C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\java\booking\grpc\Hotel.java
 C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\java\booking\grpc\HotelOrBuilder.java
+C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\java\booking\grpc\HotelStats.java
+C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\java\booking\grpc\HotelStatsOrBuilder.java
+C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\java\booking\grpc\HotelStatsResponse.java
+C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\java\booking\grpc\HotelStatsResponseOrBuilder.java
 C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\java\booking\grpc\PaymentRequest.java
 C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\java\booking\grpc\PaymentRequestOrBuilder.java
 C:\Users\HP\eclipse-workspace\booking-system\target\generated-sources\protobuf\java\booking\grpc\PaymentResponse.java

@@ -60,6 +60,21 @@ public final class BookingProto {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_booking_grpc_CancelResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_booking_grpc_AdminEmpty_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_booking_grpc_AdminEmpty_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_booking_grpc_HotelStatsResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_booking_grpc_HotelStatsResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_booking_grpc_HotelStats_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_booking_grpc_HotelStats_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -85,17 +100,26 @@ public final class BookingProto {
       "tResponse\022\017\n\007success\030\001 \001(\010\022\017\n\007message\030\002 " +
       "\001(\t\"8\n\rCancelRequest\022\025\n\rreservationId\030\001 " +
       "\001(\t\022\020\n\010clientId\030\002 \001(\t\"2\n\016CancelResponse\022" +
-      "\017\n\007success\030\001 \001(\010\022\017\n\007message\030\002 \001(\t2\325\002\n\016Bo" +
-      "okingService\022I\n\014SearchHotels\022\033.booking.g" +
-      "rpc.SearchRequest\032\034.booking.grpc.SearchR" +
-      "esponse\022V\n\017MakeReservation\022 .booking.grp" +
-      "c.ReservationRequest\032!.booking.grpc.Rese" +
-      "rvationResponse\022P\n\021PayForReservation\022\034.b" +
-      "ooking.grpc.PaymentRequest\032\035.booking.grp" +
-      "c.PaymentResponse\022N\n\021CancelReservation\022\033" +
-      ".booking.grpc.CancelRequest\032\034.booking.gr" +
-      "pc.CancelResponseB\036\n\014booking.grpcB\014Booki" +
-      "ngProtoP\001b\006proto3"
+      "\017\n\007success\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\"\014\n\nAdm" +
+      "inEmpty\"=\n\022HotelStatsResponse\022\'\n\005stats\030\001" +
+      " \003(\0132\030.booking.grpc.HotelStats\"\306\001\n\nHotel" +
+      "Stats\022\021\n\thotelName\030\001 \001(\t\022\014\n\004city\030\002 \001(\t\022\020" +
+      "\n\010category\030\003 \001(\005\022\021\n\tfreeRooms\030\004 \001(\005\022\031\n\021t" +
+      "otalReservations\030\005 \001(\005\022\022\n\nsoldNights\030\006 \001" +
+      "(\005\022\023\n\013hotelIncome\030\007 \001(\001\022\030\n\020systemCommiss" +
+      "ion\030\010 \001(\001\022\024\n\014currentPrice\030\t \001(\0012\325\002\n\016Book" +
+      "ingService\022I\n\014SearchHotels\022\033.booking.grp" +
+      "c.SearchRequest\032\034.booking.grpc.SearchRes" +
+      "ponse\022V\n\017MakeReservation\022 .booking.grpc." +
+      "ReservationRequest\032!.booking.grpc.Reserv" +
+      "ationResponse\022P\n\021PayForReservation\022\034.boo" +
+      "king.grpc.PaymentRequest\032\035.booking.grpc." +
+      "PaymentResponse\022N\n\021CancelReservation\022\033.b" +
+      "ooking.grpc.CancelRequest\032\034.booking.grpc" +
+      ".CancelResponse2[\n\014AdminService\022K\n\rGetHo" +
+      "telStats\022\030.booking.grpc.AdminEmpty\032 .boo" +
+      "king.grpc.HotelStatsResponseB\036\n\014booking." +
+      "grpcB\014BookingProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -155,6 +179,24 @@ public final class BookingProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_booking_grpc_CancelResponse_descriptor,
         new java.lang.String[] { "Success", "Message", });
+    internal_static_booking_grpc_AdminEmpty_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_booking_grpc_AdminEmpty_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_booking_grpc_AdminEmpty_descriptor,
+        new java.lang.String[] { });
+    internal_static_booking_grpc_HotelStatsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_booking_grpc_HotelStatsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_booking_grpc_HotelStatsResponse_descriptor,
+        new java.lang.String[] { "Stats", });
+    internal_static_booking_grpc_HotelStats_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_booking_grpc_HotelStats_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_booking_grpc_HotelStats_descriptor,
+        new java.lang.String[] { "HotelName", "City", "Category", "FreeRooms", "TotalReservations", "SoldNights", "HotelIncome", "SystemCommission", "CurrentPrice", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
