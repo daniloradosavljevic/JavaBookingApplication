@@ -64,7 +64,8 @@ public class BookingClient {
 
 
                 System.out.println("\nBroj pronadjenih hotela: " + response.getHotelsCount());
-                response.getHotelsList().forEach(hotel -> {
+                // Otkomentarisati za standardan prikaz teksta
+                /* response.getHotelsList().forEach(hotel -> {
                     System.out.println("---------------------------------");
                     System.out.println("Naziv: " + hotel.getName());
                     System.out.println("Kategorija: " + hotel.getCategory());
@@ -72,6 +73,15 @@ public class BookingClient {
                     System.out.println("Udaljenost od centra: " + hotel.getDistanceFromCenter());
                     System.out.println("Slobodnih soba: " + hotel.getAvailableRooms());
                     System.out.println("Cena: " + hotel.getCurrentPrice());
+                });*/
+                // Zakomentarisati ako se gornji kod otkomentarise
+                response.getHotelsList().forEach(hotel -> {
+                    String info = String.format(
+                        "Naziv: %s | Kategorija: %d | Grad: %s | Udaljenost od centra: %.1f | Slobodnih soba: %d | Cena: %.2f",
+                        hotel.getName(), hotel.getCategory(), hotel.getCity(), hotel.getDistanceFromCenter(),
+                        hotel.getAvailableRooms(), hotel.getCurrentPrice()
+                    );
+                    scrollText(info, 70, 50,2); 
                 });
                 System.out.println();
 
@@ -145,6 +155,24 @@ public class BookingClient {
 
         channel.shutdown();
         System.out.println("Kraj programa.");
+    }
+    public static void scrollText(String text, int width, int delayMs, int cycles) {
+        String padding = new String(new char[width]).replace("\0", " ");
+        String scroll = padding + text + padding;
+
+        try {
+            for (int c = 0; c < cycles; c++) {
+                for (int i = 0; i <= scroll.length() - width; i++) {
+                    String window = scroll.substring(i, i + width);
+                    System.out.print("\r" + window);
+                    System.out.flush();
+                    Thread.sleep(delayMs);
+                }
+            }
+            System.out.print("\r" + new String(new char[width]).replace("\0", " ") + "\r");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     public static void printMenuPrompt() {
