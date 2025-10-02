@@ -32,14 +32,7 @@ public class BookingServer {
                 .start();
         System.out.println("Admin gRPC server started on port 7000");
         
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Da li zelis da pokrenes bot klijente? (da/ne): ");
-        String odgovor = scanner.nextLine().trim().toLowerCase();
-        if (odgovor.equals("da")) {
-            System.out.print("Unesi broj botova: ");
-            int brojBotova = Integer.parseInt(scanner.nextLine().trim());
-            BotClientRunner.startBotClients(brojBotova);
-        }
+        BotClientRunner.startBotClients(0);
         
         server.awaitTermination();
         adminGrpc.awaitTermination();

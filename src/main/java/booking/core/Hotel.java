@@ -57,4 +57,5 @@ public class Hotel {
     public double getMaxPrice() {
         return priceHistory.stream().max(Double::compare).orElse(currentPrice);
     }
+    
 }

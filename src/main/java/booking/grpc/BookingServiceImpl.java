@@ -22,9 +22,14 @@ public class BookingServiceImpl extends BookingServiceGrpc.BookingServiceImplBas
     private final String finansijeCsv = "booking-data/finansije.csv";
     private final double commissionPercent = 0.10;
     private final int paymentTimeoutMinutes = 5;
-
+    
+    private final Map<String, String> priceState = new HashMap<>();
+    private final Map<String, Double> basePrices = new HashMap<>();
+    
     public BookingServiceImpl(NotificationServer notificationServer) {
         this.notificationServer = notificationServer;
+        initBasePrices();
+        startPriceAutoAdjuster();
     }
 
     private List<Hotel> loadHotelsFromCSV() {
@@ -362,6 +367,70 @@ public class BookingServiceImpl extends BookingServiceGrpc.BookingServiceImplBas
                     changedHotel.getCity(), changedHotel.getDistanceFromCenter(), changedHotel.getCategory());
             notifyChange(changedHotel, "Promena cene", params);
         }
+    }
+    
+    private void initBasePrices() {
+        List<Hotel> hotels = loadHotelsFromCSV();
+        for (Hotel h : hotels) {
+            basePrices.put(h.getId(), h.getCurrentPrice());
+            priceState.put(h.getId(), "NORMAL");
+        }
+    }
+
+    private void startPriceAutoAdjuster() {
+        new Thread(() -> {
+            while (true) {
+                try {
+                    List<Hotel> hotels = loadHotelsFromCSV();
+                    boolean changed = false;
+                    for (Hotel h : hotels) {
+                        String hotelId = h.getId();
+                        int freeRooms = h.getFreeRooms();
+                        String lastState = priceState.getOrDefault(hotelId, "NORMAL");
+                        double oldPrice = h.getCurrentPrice();
+                        double basePrice = basePrices.getOrDefault(hotelId, oldPrice);
+
+                        if (freeRooms >= 10 && !"DISCOUNTED".equals(lastState)) {
+                            double newPrice = Math.round(basePrice * 0.7 * 100.0) / 100.0;
+                            if (oldPrice != newPrice) {
+                                h.setCurrentPrice(newPrice);
+                                priceState.put(hotelId, "DISCOUNTED");
+                                changed = true;
+                                System.out.println("[AKCIJA] Hotel " + h.getName() + ": Snizenje cene za 30%! Nova cena: " + newPrice);
+                                notifyChange(h, "Promena cene", 
+                                    new NotificationServer.SearchParams(h.getCity(), h.getDistanceFromCenter(), h.getCategory()));
+                            }
+                        }
+                        else if (freeRooms <= 1 && !"INCREASED".equals(lastState)) {
+                            double newPrice = Math.round(basePrice * 1.3 * 100.0) / 100.0;
+                            if (oldPrice != newPrice) {
+                                h.setCurrentPrice(newPrice);
+                                priceState.put(hotelId, "INCREASED");
+                                changed = true;
+                                System.out.println("[AKCIJA] Hotel " + h.getName() + ": Poskupljenje cene za 30%! Nova cena: " + newPrice);
+                                notifyChange(h, "Promena cene", 
+                                    new NotificationServer.SearchParams(h.getCity(), h.getDistanceFromCenter(), h.getCategory()));
+                            }
+                        }
+                        else if (freeRooms > 1 && freeRooms < 10 && !"NORMAL".equals(lastState)) {
+                            double newPrice = Math.round(basePrice * 100.0) / 100.0;
+                            if (oldPrice != newPrice) {
+                                h.setCurrentPrice(newPrice);
+                                System.out.println("[AKCIJA] Hotel " + h.getName() + ": Povratak na baznu cenu! Cena: " + newPrice);
+                                notifyChange(h, "Promena cene", 
+                                    new NotificationServer.SearchParams(h.getCity(), h.getDistanceFromCenter(), h.getCategory()));
+                            }
+                            priceState.put(hotelId, "NORMAL");
+                            changed = true;
+                        }
+                    }
+                    if (changed) saveHotelsToCSV(hotels);
+                    Thread.sleep(10000); 
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, "PriceAutoAdjuster").start();
     }
 
     public void notifyChange(Hotel hotel, String type, NotificationServer.SearchParams params) {
